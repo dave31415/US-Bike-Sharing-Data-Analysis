@@ -1,8 +1,11 @@
 import streamlit as st
 import pandas as pd
-import datetime as dt
 import numpy as np
 from collections import Counter
+import sys
+sys.path.append('../src/main/data_wrangeling_and_filtering')
+import data_wrangeling_and_filtering as dwaf
+
 
 st.title('Explore Motivates US Bike-Sharing Data')
 
@@ -59,37 +62,10 @@ def load_data_from_csv_into_df(file_name):
     return df
 
 
-# applying some data wrangling
-def create_new_date_columns(df):
-    df['Start Time'] = pd.to_datetime(df['Start Time'])
-    df['End Time'] = pd.to_datetime(df['End Time'])
-    df['Hour Start Time'] = df['Start Time'].dt.hour
-    df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df[['Start Time']].apply(lambda x: dt.datetime.strftime(x['Start Time'], '%A'), axis=1)
-    return df
-
-# filtering the df based on user input
-def filter_data_frame_with_user_input(df, month=None, day=None):
-    if month is not None and day is None:
-        df = df[df['month'] == month]
-        return df
-        st.write("it works for month")
-    elif day is not None and month is None:
-        df = df[df['day_of_week'] == day]
-        return df
-        st.write("it works for day")
-    elif day is not None and month is not None:
-        df = df[df['month'] == month]
-        df = df[df['day_of_week'] == day]
-        return df
-        st.write("it works for month and daY")
-    elif day is None and month is None:
-        return df
-
 # calling the functions and create a new df based on the user input
 file_name = CITY_DATA[city_name.lower()]
 load = load_data_from_csv_into_df(file_name)
-clean = create_new_date_columns(load)
+clean = dwaf.create_new_date_columns(load)
 
 # preparing optional filter values for filter function
 try:
@@ -103,7 +79,7 @@ except NameError:
     day = None
 
 # final data frame for display
-final_df = filter_data_frame_with_user_input(clean, month_index, day)
+final_df = dwaf.filter_data_frame_with_user_input(clean, month_index, day)
 
 # STARTING THE ANALYTICS SECTION
 st.subheader("Explore your selection below:")
@@ -135,7 +111,6 @@ if day is None and month_index is None:
 hist_values = np.histogram(
     final_df['Start Time'].dt.hour, bins=24, range=(0, 24))[0]
 st.bar_chart(hist_values)
-
 
 
 #2 Popular stations and trip

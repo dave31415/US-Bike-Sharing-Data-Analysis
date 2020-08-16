@@ -4,5 +4,5 @@ artefacts/
 test_artifacts/
 *.swp
 .pytest_cache/
-__pychae__/
+src/main/__pycache__/
 *.ipynb
