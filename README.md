@@ -9,3 +9,5 @@ This data app runs with streamlit on Python 3.8. The following libraries are req
 * numpy
 * Counter
 * sys
+
+You can start the app on a localhost using: `streamlit run bike_sharing_data_ui.py`
