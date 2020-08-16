@@ -6,6 +6,9 @@ import sys
 sys.path.append('../src/main/data_wrangeling_and_filtering')
 import data_wrangeling_and_filtering as dwaf
 
+# to run pytest comment out the above import and use the one below:
+#import src.main.data_wrangeling_and_filtering as dwaf
+
 
 st.title('Explore Motivates US Bike-Sharing Data')
 
