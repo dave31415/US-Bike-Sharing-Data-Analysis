@@ -8,7 +8,8 @@ def create_new_date_columns(df):
     df['End Time'] = pd.to_datetime(df['End Time'])
     df['Hour Start Time'] = df['Start Time'].dt.hour
     df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df[['Start Time']].apply(lambda x: dt.datetime.strftime(x['Start Time'], '%A'), axis=1)
+    df['day_of_week'] = df[['Start Time']].apply(
+        lambda x: dt.datetime.strftime(x['Start Time'], '%A'), axis=1)
     return df
 
 
