@@ -13,4 +13,5 @@ reactivate (without reinstalling) it with
 
 source venv/bin/activate
 
-You can start the app on a localhost using: `streamlit run src/main/bike_sharing_data_ui.py`
+You can start the app on a localhost using: `./run_app.sh`
+

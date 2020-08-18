@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import os
+import collections
 from collections import Counter
 from bikes import data_wrangeling_and_filtering as dwaf
 
@@ -16,6 +16,7 @@ def get_filename(city_name):
 
 
 def read_data_into_df(city_name):
+    city_name = city_name.lower().replace(' ', '_')
     file_name = get_filename(city_name)
     df = pd.read_csv(file_name)
     return df
